@@ -1,0 +1,2554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="description"
+  content="BrainiacSPY— análise e gestão digital autorizada."
+>
+
+<title>BrainiacSPY— — Análise</title>
+
+<style>
+:root {
+  --green: #25D366;
+  --green-dark: #128C7E;
+  --green-deep: #075E54;
+  --green-light: #dcf8c6;
+
+  --bg: #f5f5f1;
+  --white: #ffffff;
+
+  --text: #111111;
+  --text-dark: #263238;
+  --text-light: #7f8c8d;
+
+  --border: rgba(0,0,0,.07);
+
+  --shadow:
+    0 25px 70px rgba(0,0,0,.10);
+
+  --shadow-green:
+    0 15px 40px rgba(37,211,102,.22);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(37,211,102,.10),
+      transparent 38%
+    ),
+    var(--bg);
+
+  color: var(--text);
+
+  font-family:
+    "Segoe UI",
+    Tahoma,
+    Geneva,
+    Verdana,
+    sans-serif;
+
+  overflow-x: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+
+/* =========================================================
+   TELA INICIAL
+========================================================= */
+
+#welcomeScreen {
+  position: fixed;
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  overflow-y: auto;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(37,211,102,.18),
+      transparent 45%
+    ),
+    #f5f5f1;
+}
+
+.welcome-card {
+  width: 100%;
+  max-width: 440px;
+
+  padding: 34px 28px;
+
+  text-align: center;
+
+  background: rgba(255,255,255,.97);
+
+  border:
+    1px solid rgba(0,0,0,.06);
+
+  border-radius: 28px;
+
+  box-shadow: var(--shadow);
+
+  animation:
+    welcomeIn .55s
+    cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes welcomeIn {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(25px)
+      scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+.welcome-image {
+  display: block;
+
+  width: 112px;
+  height: 112px;
+
+  margin: 0 auto 17px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border: 4px solid var(--green);
+
+  padding: 3px;
+
+  background: white;
+
+  box-shadow:
+    0 10px 30px
+    rgba(37,211,102,.20);
+}
+
+.welcome-badge {
+  display: inline-flex;
+
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 13px;
+
+  margin-bottom: 15px;
+
+  border-radius: 999px;
+
+  background: var(--green-light);
+
+  color: var(--green-dark);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: .6px;
+}
+
+.welcome-badge::before {
+  content: "";
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(37,211,102,.12);
+}
+
+.welcome-card h2 {
+  margin-bottom: 12px;
+
+  color: var(--text);
+
+  font-size: 25px;
+
+  line-height: 1.2;
+}
+
+.welcome-card p {
+  max-width: 370px;
+
+  margin: 0 auto 25px;
+
+  color: var(--text-light);
+
+  font-size: 15px;
+
+  line-height: 1.65;
+}
+
+.welcome-buttons {
+  display: flex;
+
+  gap: 12px;
+}
+
+.welcome-buttons button {
+  flex: 1;
+
+  min-height: 53px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    box-shadow .2s ease;
+}
+
+#btnYes {
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      var(--green-dark)
+    );
+
+  box-shadow:
+    0 12px 28px
+    rgba(37,211,102,.25);
+}
+
+#btnYes:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 16px 32px
+    rgba(37,211,102,.32);
+}
+
+#btnNo {
+  color: #444;
+
+  background: #eeeeee;
+}
+
+#btnNo:hover {
+  background: #e2e2e2;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   SHAKE
+========================================================= */
+
+.shake {
+  animation: shake .45s ease;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-8px);
+  }
+
+  50% {
+    transform: translateX(8px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+#conteudo {
+  display: none;
+
+  min-height: 100vh;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  min-height: 72px;
+
+  padding:
+    12px
+    max(20px, 4vw);
+
+  background:
+    rgba(245,245,241,.88);
+
+  border-bottom:
+    1px solid var(--border);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+}
+
+.menu-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background:
+    rgba(0,0,0,.05);
+}
+
+.menu-button svg {
+  width: 24px;
+  height: 24px;
+
+  fill: var(--text-dark);
+}
+
+.logo {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--green);
+
+  font-size: 21px;
+
+  font-weight: 800;
+
+  letter-spacing: -.5px;
+}
+
+.logo-dot {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 0 5px
+    rgba(37,211,102,.12);
+}
+
+.download-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  color: white;
+
+  background: var(--green);
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px
+    rgba(37,211,102,.20);
+
+  transition: .2s ease;
+}
+
+.download-button:hover {
+  transform: translateY(-2px);
+
+  background:
+    var(--green-dark);
+}
+
+.download-button svg {
+  width: 22px;
+  height: 22px;
+
+  fill: white;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+  width: 100%;
+
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding:
+    0 20px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main-content {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  min-height:
+    calc(100vh - 150px);
+
+  padding:
+    55px 0;
+
+  text-align: center;
+}
+
+.status-pill {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 18px;
+
+  padding:
+    8px 14px;
+
+  border-radius: 999px;
+
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-dark);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: .5px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background:
+    var(--green);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(37,211,102,.12);
+
+  animation:
+    blink 1.4s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .35;
+  }
+}
+
+.title {
+  max-width: 700px;
+
+  margin-bottom: 14px;
+
+  color:
+    var(--text);
+
+  font-size:
+    clamp(1.5rem, 4vw, 2.1rem);
+
+  font-weight: 800;
+
+  line-height: 1.25;
+}
+
+.phone-number {
+  color:
+    var(--green);
+}
+
+.subtitle {
+  max-width: 550px;
+
+  margin-bottom: 25px;
+
+  color:
+    var(--text-light);
+
+  font-size:
+    clamp(1rem, 2.5vw, 1.15rem);
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   FOTO
+========================================================= */
+
+#profileImageContainer {
+  display: none;
+
+  margin-bottom: 20px;
+}
+
+#profileImage {
+  width: 120px;
+  height: 120px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border:
+    4px solid var(--green);
+
+  box-shadow:
+    0 12px 30px
+    rgba(37,211,102,.18);
+}
+
+
+/* =========================================================
+   CARD DA ANÁLISE
+========================================================= */
+
+.process-card {
+  width: 100%;
+
+  max-width: 560px;
+
+  padding: 25px;
+
+  background:
+    rgba(255,255,255,.92);
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 26px;
+
+  box-shadow:
+    0 15px 50px
+    rgba(0,0,0,.07);
+}
+
+
+/* =========================================================
+   GIF
+========================================================= */
+
+#hackerGif {
+  display: block;
+
+  width: 100%;
+
+  max-width: 280px;
+
+  height: 180px;
+
+  margin: 0 auto 20px;
+
+  object-fit: cover;
+
+  border-radius: 18px;
+}
+
+
+/* =========================================================
+   TEXTO DA ETAPA
+========================================================= */
+
+.analysis-label {
+  margin-bottom: 8px;
+
+  color:
+    var(--text-dark);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: .8px;
+
+  text-transform: uppercase;
+}
+
+#mainSubtitle {
+  display: block;
+
+  min-height: 25px;
+
+  margin:
+    12px 0 18px;
+
+  color:
+    var(--green-dark);
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  transition:
+    opacity .3s ease;
+}
+
+
+/* =========================================================
+   PORCENTAGEM
+========================================================= */
+
+.progress-number {
+  margin-bottom: 10px;
+
+  color:
+    var(--text-dark);
+
+  font-size: 28px;
+
+  font-weight: 900;
+}
+
+.progress-number span {
+  color:
+    var(--green);
+}
+
+
+/* =========================================================
+   BARRA DE PROGRESSO
+========================================================= */
+
+.progress-wrapper {
+  width: 100%;
+
+  margin:
+    0 auto 15px;
+}
+
+.progress-track {
+  position: relative;
+
+  width: 100%;
+
+  height: 12px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background:
+    #e8ece9;
+}
+
+.progress-bar {
+  position: relative;
+
+  width: 0%;
+
+  height: 100%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #25D366,
+      #16b957,
+      #128C7E
+    );
+
+  box-shadow:
+    0 0 15px
+    rgba(37,211,102,.35);
+
+  transition:
+    width .4s ease;
+}
+
+.progress-bar::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  width: 70px;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.6),
+      transparent
+    );
+
+  animation:
+    progressLight 1.2s infinite;
+}
+
+@keyframes progressLight {
+
+  from {
+    transform:
+      translateX(-80px);
+  }
+
+  to {
+    transform:
+      translateX(80px);
+  }
+}
+
+
+/* =========================================================
+   NÚMEROS ALEATÓRIOS
+========================================================= */
+
+#codeContainer {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 8px;
+
+  min-height: 70px;
+
+  margin:
+    15px 0 5px;
+}
+
+.digit-wrapper {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  min-width: 42px;
+}
+
+.digit {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 42px;
+  height: 48px;
+
+  border-radius: 10px;
+
+  color:
+    var(--text-dark);
+
+  background:
+    #f4f6f5;
+
+  font-size: 24px;
+
+  font-weight: 800;
+
+  transition:
+    .3s ease;
+}
+
+.digit.active {
+  color:
+    white;
+
+  background:
+    var(--green);
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(37,211,102,.25);
+}
+
+.underline {
+  margin-top: 4px;
+
+  color:
+    var(--green);
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   ETAPAS
+========================================================= */
+
+.steps {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  width: 100%;
+
+  margin-top: 18px;
+
+  text-align: left;
+}
+
+.step {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding:
+    10px 12px;
+
+  border-radius: 12px;
+
+  background:
+    #f7f9f8;
+
+  color:
+    #9aa3a0;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  transition:
+    .3s ease;
+}
+
+.step-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 22px;
+  height: 22px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background:
+    #e4e8e6;
+
+  font-size: 11px;
+}
+
+.step.active {
+  color:
+    var(--green-dark);
+
+  background:
+    var(--green-light);
+}
+
+.step.active .step-icon {
+  color: white;
+
+  background:
+    var(--green);
+}
+
+.step.done {
+  color:
+    var(--text-dark);
+
+  background:
+    rgba(37,211,102,.08);
+}
+
+.step.done .step-icon {
+  color: white;
+
+  background:
+    var(--green-dark);
+}
+
+
+/* =========================================================
+   BOTÃO FINAL
+========================================================= */
+
+#reportButton {
+  display: none;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  max-width: 350px;
+
+  min-height: 54px;
+
+  margin:
+    22px auto 0;
+
+  padding:
+    15px 25px;
+
+  border-radius: 14px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      var(--green-dark)
+    );
+
+  text-decoration: none;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 12px 30px
+    rgba(37,211,102,.24);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+#reportButton:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 16px 35px
+    rgba(37,211,102,.32);
+}
+
+
+/* =========================================================
+   SUCESSO
+========================================================= */
+
+#successLine {
+  width: 80%;
+
+  max-width: 400px;
+
+  height: 5px;
+
+  margin:
+    28px auto 0;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--green),
+      transparent
+    );
+
+  opacity: 0;
+}
+
+#successLine.show {
+  opacity: 1;
+
+  animation:
+    successLine 1s ease;
+}
+
+@keyframes successLine {
+
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 80%;
+  }
+}
+
+.pulse-animation {
+  animation:
+    pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+
+  0% {
+    box-shadow:
+      0 0 0 0
+      rgba(37,211,102,.45);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 12px
+      rgba(37,211,102,0);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0
+      rgba(37,211,102,0);
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+  width: 100%;
+
+  padding:
+    25px 0;
+
+  border-top:
+    1px solid var(--border);
+
+  background:
+    rgba(255,255,255,.35);
+}
+
+.footer-content {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 10px;
+
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 20px;
+}
+
+.footer-links a {
+  color:
+    var(--text-light);
+
+  font-size: 13px;
+
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color:
+    var(--green);
+}
+
+.copyright {
+  color:
+    var(--text-light);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+  position: fixed;
+
+  left: 50%;
+  bottom: 25px;
+
+  z-index: 100000;
+
+  width:
+    calc(100% - 32px);
+
+  max-width: 420px;
+
+  padding:
+    14px 18px;
+
+  border-radius: 14px;
+
+  color: white;
+
+  background:
+    #111;
+
+  box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.2);
+
+  text-align: center;
+
+  font-size: 14px;
+
+  transform:
+    translate(-50%,120px);
+
+  opacity: 0;
+
+  transition:
+    .3s ease;
+}
+
+.toast.show {
+  transform:
+    translate(-50%,0);
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  #welcomeScreen {
+    padding: 15px;
+  }
+
+  .welcome-card {
+    padding:
+      27px 20px;
+
+    border-radius:
+      24px;
+  }
+
+  .welcome-image {
+    width: 96px;
+    height: 96px;
+  }
+
+  .welcome-card h2 {
+    font-size: 21px;
+  }
+
+  .welcome-card p {
+    font-size: 14px;
+  }
+
+  .welcome-buttons {
+    flex-direction: column;
+  }
+
+  .welcome-buttons button {
+    width: 100%;
+  }
+
+  .header {
+    min-height: 64px;
+
+    padding:
+      10px 14px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .menu-button,
+  .download-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .main-content {
+    min-height:
+      calc(100vh - 130px);
+
+    padding:
+      35px 0;
+  }
+
+  .container {
+    padding:
+      0 15px;
+  }
+
+  .process-card {
+    padding:
+      17px;
+
+    border-radius:
+      20px;
+  }
+
+  #hackerGif {
+    max-width:
+      240px;
+
+    height:
+      155px;
+  }
+
+  #codeContainer {
+    gap: 5px;
+  }
+
+  .digit-wrapper {
+    min-width:
+      35px;
+  }
+
+  .digit {
+    width: 35px;
+    height: 42px;
+
+    font-size: 20px;
+  }
+
+  .underline {
+    font-size: 15px;
+  }
+
+  .steps {
+    gap: 6px;
+  }
+
+  .step {
+    font-size: 11px;
+  }
+
+  .footer-links {
+    gap: 12px;
+  }
+
+  .progress-number {
+    font-size: 25px;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     TELA 1 — CONFIRMAÇÃO
+===================================================== -->
+
+<section id="welcomeScreen">
+
+  <div
+    id="welcomeCard"
+    class="welcome-card"
+  >
+
+    <img
+      id="imageia"
+      src="images/profile-man.jpg"
+      alt="Imagem do usuário"
+      class="welcome-image"
+    >
+
+    <div class="welcome-badge">
+      ANÁLISE CONCLUÍDA
+    </div>
+
+    <h2>
+      Análise Inteligente Concluída
+    </h2>
+
+    <p>
+      A análise foi concluída para um dispositivo autorizado.
+      Deseja continuar para visualizar as informações disponíveis?
+    </p>
+
+    <div class="welcome-buttons">
+
+      <button
+        id="btnYes"
+        type="button"
+      >
+        SIM, CONTINUAR
+      </button>
+
+      <button
+        id="btnNo"
+        type="button"
+      >
+        NÃO
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTEÚDO PRINCIPAL
+===================================================== -->
+
+<div id="conteudo">
+
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <button
+      class="menu-button"
+      type="button"
+      aria-label="Menu"
+    >
+
+      <svg viewBox="0 0 24 24">
+
+        <path
+          d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+        />
+
+      </svg>
+
+    </button>
+
+
+    <div class="logo">
+
+    
+
+      BrainiacSPY
+
+    </div>
+
+
+    <button
+      class="download-button"
+      type="button"
+      id="downloadButton"
+      aria-label="Download"
+    >
+
+      <svg viewBox="0 0 24 24">
+
+        <path
+          d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+        />
+
+      </svg>
+
+    </button>
+
+  </header>
+
+
+  <!-- MAIN -->
+
+  <div class="container">
+
+    <main class="main-content">
+
+
+      <div class="status-pill">
+
+        <span class="status-dot"></span>
+
+        SISTEMA ONLINE
+
+      </div>
+
+
+      <h1 class="title">
+
+        Análise concluída para
+
+        <span
+          id="phoneNumberDisplay"
+          class="phone-number"
+        >
+          (telefone)
+        </span>
+
+      </h1>
+
+
+      <p
+        class="subtitle"
+        id="subtitle"
+      >
+        Aguarde enquanto carregamos as informações disponíveis.
+      </p>
+
+
+      <!-- FOTO -->
+
+      <div id="profileImageContainer">
+
+        <img
+          id="profileImage"
+          alt="Imagem de perfil"
+        >
+
+      </div>
+
+
+      <!-- CARD DE ANÁLISE -->
+
+      <div class="process-card">
+
+
+        <img
+          id="hackerGif"
+          src="images/hacker.89cda9036cfbd32d67ad.gif"
+          alt="Processando análise"
+        >
+
+
+        <div class="analysis-label">
+          PROCESSAMENTO EM ANDAMENTO
+        </div>
+
+
+        <!-- PORCENTAGEM -->
+
+        <div
+          class="progress-number"
+          id="progressNumber"
+        >
+          <span>0</span>%
+        </div>
+
+
+        <!-- BARRA DE PROGRESSO -->
+
+        <div class="progress-wrapper">
+
+          <div class="progress-track">
+
+            <div
+              id="progressBar"
+              class="progress-bar"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <p id="mainSubtitle">
+          Inicializando análise...
+        </p>
+
+
+        <!-- 4 NÚMEROS ALEATÓRIOS -->
+
+        <div id="codeContainer"></div>
+
+
+        <!-- ETAPAS -->
+
+        <div class="steps">
+
+
+          <div
+            class="step"
+            id="step1"
+          >
+
+            <span class="step-icon">
+              1
+            </span>
+
+            <span>
+              Inicializando análise
+            </span>
+
+          </div>
+
+
+          <div
+            class="step"
+            id="step2"
+          >
+
+            <span class="step-icon">
+              2
+            </span>
+
+            <span>
+              Verificando dados disponíveis
+            </span>
+
+          </div>
+
+
+          <div
+            class="step"
+            id="step3"
+          >
+
+            <span class="step-icon">
+              3
+            </span>
+
+            <span>
+              Processando informações
+            </span>
+
+          </div>
+
+
+          <div
+            class="step"
+            id="step4"
+          >
+
+            <span class="step-icon">
+              4
+            </span>
+
+            <span>
+              Validando registros
+            </span>
+
+          </div>
+
+
+          <div
+            class="step"
+            id="step5"
+          >
+
+            <span class="step-icon">
+              5
+            </span>
+
+            <span>
+              Organizando resultados
+            </span>
+
+          </div>
+
+
+          <div
+            class="step"
+            id="step6"
+          >
+
+            <span class="step-icon">
+              6
+            </span>
+
+            <span>
+              Finalizando análise
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- BOTÃO FINAL -->
+
+        <a
+          href="../relatorio/"
+          id="reportButton"
+          class="pulse-animation"
+        >
+          Ver informações disponíveis
+        </a>
+
+
+        <div
+          id="successLine"
+        ></div>
+
+
+      </div>
+
+
+    </main>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-content">
+
+
+        <div class="footer-links">
+
+          <a href="#">
+            Política de Privacidade
+          </a>
+
+          <a href="#">
+            Termos de Uso
+          </a>
+
+          <a href="#">
+            Suporte
+          </a>
+
+        </div>
+
+
+        <p class="copyright">
+          © 2026 BrainiacSPY. Todos os direitos reservados.
+        </p>
+
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<script>
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+
+    /* =====================================================
+       ELEMENTOS
+    ===================================================== */
+
+    const welcomeScreen =
+      document.getElementById(
+        "welcomeScreen"
+      );
+
+    const welcomeCard =
+      document.getElementById(
+        "welcomeCard"
+      );
+
+    const conteudo =
+      document.getElementById(
+        "conteudo"
+      );
+
+    const btnYes =
+      document.getElementById(
+        "btnYes"
+      );
+
+    const btnNo =
+      document.getElementById(
+        "btnNo"
+      );
+
+    const imageia =
+      document.getElementById(
+        "imageia"
+      );
+
+    const profileImage =
+      document.getElementById(
+        "profileImage"
+      );
+
+    const profileContainer =
+      document.getElementById(
+        "profileImageContainer"
+      );
+
+    const phoneDisplay =
+      document.getElementById(
+        "phoneNumberDisplay"
+      );
+
+    const subtitle =
+      document.getElementById(
+        "subtitle"
+      );
+
+    const mainSubtitle =
+      document.getElementById(
+        "mainSubtitle"
+      );
+
+    const reportButton =
+      document.getElementById(
+        "reportButton"
+      );
+
+    const codeContainer =
+      document.getElementById(
+        "codeContainer"
+      );
+
+    const progressBar =
+      document.getElementById(
+        "progressBar"
+      );
+
+    const progressNumber =
+      document.getElementById(
+        "progressNumber"
+      );
+
+    const successLine =
+      document.getElementById(
+        "successLine"
+      );
+
+    const toast =
+      document.getElementById(
+        "toast"
+      );
+
+
+    /* =====================================================
+       IMAGEM SALVA
+    ===================================================== */
+
+    const savedImage =
+      localStorage.getItem(
+        "contactProfileImage"
+      );
+
+
+    if (savedImage) {
+
+      imageia.src =
+        savedImage;
+
+      profileImage.src =
+        savedImage;
+
+    }
+
+
+    /* =====================================================
+       OBTER NÚMERO
+    ===================================================== */
+
+    function obterNumero() {
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      let numero =
+        localStorage.getItem(
+          "numeroClonado"
+        );
+
+
+      if (!numero) {
+
+        numero =
+          params.get(
+            "numero"
+          );
+
+      }
+
+
+      if (numero) {
+
+        localStorage.setItem(
+          "numeroClonado",
+          numero
+        );
+
+      }
+
+
+      return numero || "";
+
+    }
+
+
+    /* =====================================================
+       FORMATAR NÚMERO
+    ===================================================== */
+
+    function formatarNumeroBrasil(
+      numero
+    ) {
+
+      if (!numero) {
+        return "";
+      }
+
+
+      let num =
+        String(numero)
+          .replace(
+            /\D/g,
+            ""
+          );
+
+
+      if (
+        num.length > 11 &&
+        num.startsWith("55")
+      ) {
+
+        num =
+          num.substring(2);
+
+      }
+
+
+      if (
+        num.length === 11
+      ) {
+
+        return num.replace(
+          /^(\d{2})(\d)(\d{4})(\d{4})$/,
+          "($1) $2 $3-$4"
+        );
+
+      }
+
+
+      if (
+        num.length === 10
+      ) {
+
+        return num.replace(
+          /^(\d{2})(\d{4})(\d{4})$/,
+          "($1) $2-$3"
+        );
+
+      }
+
+
+      return num;
+
+    }
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    function showToast(
+      message
+    ) {
+
+      toast.textContent =
+        message;
+
+      toast.classList.add(
+        "show"
+      );
+
+
+      setTimeout(
+        function () {
+
+          toast.classList.remove(
+            "show"
+          );
+
+        },
+        3000
+      );
+
+    }
+
+
+    /* =====================================================
+       PREPARAR CONTEÚDO
+    ===================================================== */
+
+    function prepararConteudo() {
+
+      const numero =
+        obterNumero();
+
+      const formatted =
+        formatarNumeroBrasil(
+          numero
+        );
+
+
+      phoneDisplay.textContent =
+        formatted ||
+        "(telefone)";
+
+
+      if (savedImage) {
+
+        profileContainer.style.display =
+          "block";
+
+      }
+
+
+      iniciarAnimacao();
+
+    }
+
+
+    /* =====================================================
+       BOTÃO SIM
+    ===================================================== */
+
+    btnYes.addEventListener(
+      "click",
+      function () {
+
+        welcomeScreen.style.display =
+          "none";
+
+        conteudo.style.display =
+          "block";
+
+
+        prepararConteudo();
+
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      }
+    );
+
+
+    /* =====================================================
+       BOTÃO NÃO
+    ===================================================== */
+
+    btnNo.addEventListener(
+      "click",
+      function () {
+
+        welcomeCard.classList.add(
+          "shake"
+        );
+
+
+        setTimeout(
+          function () {
+
+            welcomeCard.classList.remove(
+              "shake"
+            );
+
+          },
+          500
+        );
+
+
+        showToast(
+          "Ação cancelada. Revise as informações."
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       GERAR 4 NÚMEROS ALEATÓRIOS
+    ===================================================== */
+
+    function gerarNumeroAleatorio() {
+
+      let numero = "";
+
+      for (
+        let i = 0;
+        i < 4;
+        i++
+      ) {
+
+        numero +=
+          Math.floor(
+            Math.random() * 10
+          );
+
+      }
+
+      return numero;
+
+    }
+
+
+    /* =====================================================
+       ANIMAÇÃO PRINCIPAL
+       DURAÇÃO: 15 SEGUNDOS
+    ===================================================== */
+
+    function iniciarAnimacao() {
+
+      codeContainer.innerHTML =
+        "";
+
+      reportButton.style.display =
+        "none";
+
+      successLine.classList.remove(
+        "show"
+      );
+
+
+      /* ===================================================
+         GERA UM NOVO CÓDIGO A CADA ANÁLISE
+      =================================================== */
+
+      const codigo =
+        gerarNumeroAleatorio();
+
+
+      /* ===================================================
+         CRIA OS 4 DÍGITOS
+      =================================================== */
+
+      codigo.split("").forEach(
+        function (
+          digit,
+          index
+        ) {
+
+          const wrapper =
+            document.createElement(
+              "div"
+            );
+
+          wrapper.className =
+            "digit-wrapper";
+
+
+          const digitElement =
+            document.createElement(
+              "div"
+            );
+
+          digitElement.className =
+            "digit";
+
+          digitElement.textContent =
+            "•";
+
+
+          const underline =
+            document.createElement(
+              "div"
+            );
+
+          underline.className =
+            "underline";
+
+          underline.textContent =
+            "_";
+
+
+          wrapper.appendChild(
+            digitElement
+          );
+
+          wrapper.appendChild(
+            underline
+          );
+
+
+          codeContainer.appendChild(
+            wrapper
+          );
+
+
+          /* ===============================================
+             REVELA CADA NÚMERO INDIVIDUALMENTE
+          =============================================== */
+
+          setTimeout(
+            function () {
+
+              digitElement.textContent =
+                digit;
+
+              digitElement.classList.add(
+                "active"
+              );
+
+            },
+            1200 +
+            index * 850
+          );
+
+        }
+      );
+
+
+      /* ===================================================
+         ETAPAS
+      =================================================== */
+
+      const etapas = [
+
+        {
+          inicio: 0,
+          texto:
+            "Inicializando análise...",
+          step: 1
+        },
+
+        {
+          inicio: 2200,
+          texto:
+            "Verificando dados disponíveis...",
+          step: 2
+        },
+
+        {
+          inicio: 4800,
+          texto:
+            "Processando informações...",
+          step: 3
+        },
+
+        {
+          inicio: 7500,
+          texto:
+            "Validando registros...",
+          step: 4
+        },
+
+        {
+          inicio: 10000,
+          texto:
+            "Organizando resultados...",
+          step: 5
+        },
+
+        {
+          inicio: 12500,
+          texto:
+            "Finalizando análise...",
+          step: 6
+        }
+
+      ];
+
+
+      etapas.forEach(
+        function (etapa) {
+
+          setTimeout(
+            function () {
+
+              mainSubtitle.textContent =
+                etapa.texto;
+
+
+              atualizarEtapas(
+                etapa.step
+              );
+
+            },
+            etapa.inicio
+          );
+
+        }
+      );
+
+
+      /* ===================================================
+         PROGRESSO
+      =================================================== */
+
+      const duracao =
+        15000;
+
+      const inicio =
+        performance.now();
+
+
+      function atualizarProgresso(
+        agora
+      ) {
+
+        const decorrido =
+          agora - inicio;
+
+
+        let progresso =
+          Math.min(
+            decorrido /
+              duracao *
+              100,
+            100
+          );
+
+
+        progresso =
+          Math.floor(
+            progresso
+          );
+
+
+        progressBar.style.width =
+          progresso + "%";
+
+
+        progressNumber.innerHTML =
+          "<span>" +
+          progresso +
+          "</span>%";
+
+
+        if (
+          progresso < 100
+        ) {
+
+          requestAnimationFrame(
+            atualizarProgresso
+          );
+
+        }
+
+      }
+
+
+      requestAnimationFrame(
+        atualizarProgresso
+      );
+
+
+      /* ===================================================
+         CONCLUSÃO
+      =================================================== */
+
+      setTimeout(
+        function () {
+
+          progressBar.style.width =
+            "100%";
+
+
+          progressNumber.innerHTML =
+            "<span>100</span>%";
+
+
+          mainSubtitle.textContent =
+            "✓ Análise finalizada com sucesso";
+
+
+          subtitle.textContent =
+            "A análise foi concluída. As informações disponíveis estão prontas.";
+
+
+          atualizarEtapas(
+            6,
+            true
+          );
+
+
+          successLine.classList.add(
+            "show"
+          );
+
+
+          setTimeout(
+            function () {
+
+              reportButton.style.display =
+                "flex";
+
+            },
+            500
+          );
+
+        },
+        duracao
+      );
+
+    }
+
+
+    /* =====================================================
+       ATUALIZAR ETAPAS
+    ===================================================== */
+
+    function atualizarEtapas(
+      etapaAtual,
+      finalizado = false
+    ) {
+
+      for (
+        let i = 1;
+        i <= 6;
+        i++
+      ) {
+
+        const elemento =
+          document.getElementById(
+            "step" + i
+          );
+
+
+        elemento.classList.remove(
+          "active",
+          "done"
+        );
+
+
+        if (
+          i < etapaAtual
+        ) {
+
+          elemento.classList.add(
+            "done"
+          );
+
+          elemento.querySelector(
+            ".step-icon"
+          ).textContent =
+            "✓";
+
+        }
+
+
+        if (
+          i === etapaAtual
+        ) {
+
+          if (finalizado) {
+
+            elemento.classList.add(
+              "done"
+            );
+
+            elemento.querySelector(
+              ".step-icon"
+            ).textContent =
+              "✓";
+
+          } else {
+
+            elemento.classList.add(
+              "active"
+            );
+
+            elemento.querySelector(
+              ".step-icon"
+            ).textContent =
+              "•";
+
+          }
+
+        }
+
+
+        if (
+          i > etapaAtual
+        ) {
+
+          elemento.querySelector(
+            ".step-icon"
+          ).textContent =
+            i;
+
+        }
+
+      }
+
+    }
+
+
+    /* =====================================================
+       DOWNLOAD
+    ===================================================== */
+
+    const downloadButton =
+      document.getElementById(
+        "downloadButton"
+      );
+
+
+    downloadButton.addEventListener(
+      "click",
+      function () {
+
+        showToast(
+          "O conteúdo está pronto para consulta."
+        );
+
+      }
+    );
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
